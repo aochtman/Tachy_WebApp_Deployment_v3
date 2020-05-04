@@ -1,0 +1,105 @@
+/* Dropdown
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.Select-control{
+    border: 1px solid #203cb3;
+}
+
+.my-bg-color {
+    background-color: #f3f3f4 !important;
+}
+
+.dash-spreadsheet-container table {
+    --accent: #203cb3 !important; /* #1EAEDB !important; */
+    /* --selected-background: #ced1df !important; #FF4136 !important; */
+    --selected-background: teal !important; 
+    --selected-color: #1eff00 !important; /* #3C3C3C !important; */
+}
+
+.dash-table-container {
+    margin-right: -20px !important;
+    margin-left: -19px !important;
+}
+
+.padding-r-0 {
+    padding-right: 0px !important;
+}
+
+.margin-top-1rem {
+    margin-top: 1rem;
+}
+
+/* override */
+.row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.row-marin-top-0 {
+    margin-top: 0rem !important;
+}
+
+.my-margin-top--1rem {
+    margin-top: -1rem !important;
+}
+
+.my-navbar-well {
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+/* Content Div */
+.myContent {
+    /* border-left: 1px solid rgba(0,0,0,.1); */
+    background-color: #f3f3f4;
+    overflow-x: false;
+}
+
+.my-nav-well {
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    border-
+}
+
+/* Custom Paddings
+.my_top_padding {
+    padding-top: 1rem !important;
+}
+.my_bottom_padding {
+    padding-bottom: 1rem !important;
+}
+.my_right_padding {
+    padding-right: 1rem !important;
+}
+.my_left_padding {
+    padding-left: 1rem !important;
+}
+.my_padding {
+    /* padding-top: 2rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    padding-bottom: 1rem; */
+    /* margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-top: 1rem; 
+} */
+
+.my-border-color {
+    /* border-color: #203cb3; */
+}
+
+.my-color {
+    color: #203cb3;
+}
+
+.pretty_container {
+    border-radius: 5px;
+    background-color: white;
+    margin: 10px -5px 10px 10px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 1px 2px 2px 2px lightgrey;
+  }
+    
