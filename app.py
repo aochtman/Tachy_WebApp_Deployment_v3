@@ -88,36 +88,56 @@ auth = dash_auth.BasicAuth(
 w1 = [
     dbc.CardBody(
         [
-            html.H5("Loading...", className="card-title font-weight-bold", style={'color':'black !important;'},id="w1_header"),
+            html.Div(
+                [
+                    html.H5("Loading...", className="col card-title font-weight-bold", style={'color':'black !important;'},id="w1_header"),
+                    html.H5("n/a", className="col card-title font-weight-bold text-right", style={'color':'black !important;'},id="w1_header_perc"),
+                ], className='row'
+            ),
             dbc.Progress(style={"height": "5px"},value=1, striped=True, animated=True, color='info',id="w1_progress"),
-            html.P("Normal",className="card-text font-weight-bold",style={'margin-top':'6px'}),
+            html.P("Normal",className="card-text font-weight-bold text-center",style={'margin-top':'6px'}),
         ]
     ),
 ]
 w2 = [
     dbc.CardBody(
         [
-            html.H5("Loading...", className="card-title font-weight-bold", style={'color':'black !important;'},id="w2_header"),
+            html.Div(
+                [
+                    html.H5("Loading...", className="card-title font-weight-bold", style={'color':'black !important;'},id="w2_header"),
+                    html.H5("n/a", className="col card-title font-weight-bold text-right", style={'color':'black !important;'},id="w2_header_perc"),
+                ], className='row'
+            ),
             dbc.Progress(style={"height": "5px"},value=1, striped=True, animated=True, color='warning',id="w2_progress"),
-            html.P("Split",className="card-text font-weight-bold",style={'margin-top':'6px'}),
+            html.P("Split",className="card-text font-weight-bold text-center",style={'margin-top':'6px'}),
         ]
     ),
 ]
 w3 = [
     dbc.CardBody(
         [
-            html.H5("Loading...", className="card-title font-weight-bold", style={'color':'black !important;'},id="w3_header"),
+            html.Div(
+                [
+                    html.H5("Loading...", className="card-title font-weight-bold", style={'color':'black !important;'},id="w3_header"),
+                    html.H5("n/a", className="col card-title font-weight-bold text-right", style={'color':'black !important;'},id="w3_header_perc"),
+                ], className='row'
+            ),
             dbc.Progress(style={"height": "5px"},value=1, striped=True, animated=True, color='danger',id="w3_progress"),
-            html.P("Unclassified",className="card-text font-weight-bold",style={'margin-top':'6px'}),
+            html.P("Unclassified",className="card-text font-weight-bold text-center",style={'margin-top':'6px'}),
         ]
     ),
 ]
 w4 = [
     dbc.CardBody(
         [
-            html.H5("Loading...", className="card-title font-weight-bold", style={'color':'black !important;'},id="w4_header"),
+            html.Div(
+                [
+                    html.H5("Loading...", className="card-title font-weight-bold", style={'color':'black !important;'},id="w4_header"),
+                    html.H5("n/a", className="col card-title font-weight-bold text-right", style={'color':'black !important;'},id="w4_header_perc"),
+                ], className='row'
+            ),
             dbc.Progress(style={"height": "5px"},value=1, striped=True, animated=True, color='progress',id="w4_progress"),
-            html.P("No Classification",className="card-text font-weight-bold",style={'margin-top':'6px'}),
+            html.P("None",className="card-text font-weight-bold text-center",style={'margin-top':'6px'}),
         ]
     ),
 ]
@@ -471,10 +491,10 @@ def populate_datatable(value):
         Output('graph_voltage', 'figure'), # 3. Graph Voltage
         Output('graph_predictions', 'figure'), # Prediction Model
         Output('graph_gt', 'figure'), # Ground Truth Model
-        Output('w1_header', 'children'), Output('w1_progress', 'value'), #Output('progress_widg_1', 'children'),# 
-        Output('w2_header', 'children'), Output('w2_progress', 'value'), #Output('progress_widg_2', 'children'),#
-        Output('w3_header', 'children'), Output('w3_progress', 'value'), #Output('progress_widg_3', 'children'),#
-        Output('w4_header', 'children'), Output('w4_progress', 'value'), #Output('progress_widg_4', 'children'),#
+        Output('w1_header', 'children'), Output('w1_header_perc', 'children'), Output('w1_progress', 'value'), #Output('progress_widg_1', 'children'),# 
+        Output('w2_header', 'children'), Output('w2_header_perc', 'children'), Output('w2_progress', 'value'), #Output('progress_widg_2', 'children'),#
+        Output('w3_header', 'children'), Output('w3_header_perc', 'children'), Output('w3_progress', 'value'), #Output('progress_widg_3', 'children'),#
+        Output('w4_header', 'children'), Output('w4_header_perc', 'children'), Output('w4_progress', 'value'), #Output('progress_widg_4', 'children'),#
         Output('graph_egm', 'figure'), # Graph EGM
     ],
     [
@@ -542,21 +562,20 @@ def reload_data(value,active_cell,selected_cells,start_cell,end_cell):
     txt_count_spl = "{}".format(count_spl_pred)
     txt_count_unc = "{}".format(count_unc_pred)
     txt_count_non = "{}".format(count_non_pred)
-
-    # text_progress
     
     # value percentage
-    value_perc_nor = int(math.floor(count_nor_pred / no_signals * 100))
-    value_perc_spl = int(math.floor(count_spl_pred / no_signals * 100))
-    value_perc_unc = int(math.floor(count_unc_pred / no_signals * 100))
-    value_perc_non = int(math.floor(count_non_pred / no_signals * 100))
+    value_perc_nor = count_nor_pred / no_signals * float(100)
+    value_perc_spl = count_spl_pred / no_signals * float(100)
+    value_perc_unc = count_unc_pred / no_signals * float(100)
+    value_perc_non = count_non_pred / no_signals * float(100)
+    print(value_perc_nor)
 
     # percentage
-    txt_perc_nor = "{}%".format(value_perc_nor)
-    txt_perc_spl = "{}%".format(value_perc_spl)
-    txt_perc_unc = "{}%".format(value_perc_unc)
-    txt_perc_non = "{}%".format(value_perc_non)
-
+    txt_perc_nor = "{:.1f}%".format(value_perc_nor)
+    txt_perc_spl = "{:.1f}%".format(value_perc_spl)
+    txt_perc_unc = "{:.1f}%".format(value_perc_unc)
+    txt_perc_non = "{:.1f}%".format(value_perc_non)
+    print(txt_perc_nor)
 
 
     count_per_col = df[(df['label'].notnull()) & (df['label'] != "collision") & (df['label'] != "slow")].count()
@@ -850,10 +869,10 @@ def reload_data(value,active_cell,selected_cells,start_cell,end_cell):
             fig_voltage, # Graph 2
             fig_predictions, # Graph 3
             fig_ground_truth, # Graph 4
-            count_nor_pred, value_perc_nor, #txt_perc_nor, # Stats Widget 1
-            txt_count_spl, value_perc_spl, #txt_perc_spl, # Stats Widget 2
-            txt_count_unc, value_perc_unc, #txt_perc_unc, # Stats Widget 3
-            txt_count_non, value_perc_non, #txt_perc_non, # Stats Widget 4
+            count_nor_pred, txt_perc_nor, value_perc_nor, #txt_perc_nor, # Stats Widget 1
+            txt_count_spl, txt_perc_spl, value_perc_spl, #txt_perc_spl, # Stats Widget 2
+            txt_count_unc, txt_perc_unc, value_perc_unc, #txt_perc_unc, # Stats Widget 3
+            txt_count_non, txt_perc_non, value_perc_non, #txt_perc_non, # Stats Widget 4
             graph_egm # # Graph 5
             ) 
 
