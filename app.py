@@ -412,7 +412,7 @@ app.layout = html.Div(
 # CALLBACKS
 ########################################################################################################################################################
 # db = DatabaseController('root','','tachy','localhost') # Heroku DB
-db = DatabaseController('b59b25a8f483fb','df9f008b','heroku_59f0bb8d5ef8c3d','us-cdbr-iron-east-05.cleardb.net') # Heroku DB
+db = DatabaseController('b59b25a8f483fb','df9f008b','heroku_59f0bb8d5ef8c3d','us-mm-dca-c6a1e480c80b.g5.cleardb.net') # Heroku DB
 ############
 # Workflow 1 - Populate Dropdown
 ############
@@ -429,7 +429,7 @@ db = DatabaseController('b59b25a8f483fb','df9f008b','heroku_59f0bb8d5ef8c3d','us
 )
 def populate_dropdown(data):
     # db = DatabaseController('root','','tachy','localhost') # Heroku DB
-    db = DatabaseController('b59b25a8f483fb','df9f008b','heroku_59f0bb8d5ef8c3d','us-cdbr-iron-east-05.cleardb.net') # Heroku DB
+    db = DatabaseController('b59b25a8f483fb','df9f008b','heroku_59f0bb8d5ef8c3d','us-mm-dca-c6a1e480c80b.g5.cleardb.net') # Heroku DB
     caseids = db.pd_read_sql("SELECT caseid FROM data GROUP BY caseid;")
     case_options = []
     for case in caseids["caseid"]:
@@ -459,7 +459,7 @@ def populate_dropdown(data):
 )
 def populate_datatable(value):
     # db = DatabaseController('root','','tachy','localhost')
-    db = DatabaseController('b59b25a8f483fb','df9f008b','heroku_59f0bb8d5ef8c3d','us-cdbr-iron-east-05.cleardb.net') # Heroku DB
+    db = DatabaseController('b59b25a8f483fb','df9f008b','heroku_59f0bb8d5ef8c3d','us-mm-dca-c6a1e480c80b.g5.cleardb.net') # Heroku DB
     sql = "SELECT * FROM data WHERE caseid='{}';".format(value)
     df = db.pd_read_sql(sql)
 
