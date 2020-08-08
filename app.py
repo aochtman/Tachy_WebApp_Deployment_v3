@@ -18,7 +18,7 @@ from plotly.validators.scatter.marker import SymbolValidator
 
 
 # -- Authentication --
-import dash_auth
+# import dash_auth
 from flask import request
 
 
@@ -80,10 +80,10 @@ app = dash.Dash(
 server = app.server
 app.title = "Tachy Web App"
 
-auth = dash_auth.BasicAuth(
-    app,
-    LOGINS
-)
+# auth = dash_auth.BasicAuth(
+#     app,
+#     LOGINS
+# )
 
 w1 = [
     dbc.CardBody(
