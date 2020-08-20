@@ -18,7 +18,7 @@ from plotly.validators.scatter.marker import SymbolValidator
 
 
 # -- Authentication --
-# import dash_auth
+import dash_auth
 from flask import request
 
 
@@ -81,10 +81,10 @@ app = dash.Dash(
 server = app.server
 app.title = "Tachy Web App"
 
-# auth = dash_auth.BasicAuth(
-#     app,
-#     LOGINS
-# )
+auth = dash_auth.BasicAuth(
+    app,
+    LOGINS
+)
 
 w1 = [
     dbc.CardBody(
@@ -435,7 +435,7 @@ def populate_dropdown(data):
     case_options = []
     for case in caseids["caseid"]:
         case_options.append({"label": f"Case {case}", "value": case})
-    value = "21_52_36" # Initial Case
+    value = "21_37_48" # Initial Case
 
     text_user = "Welcome {}".format(request.authorization['username'].title())
     username = request.authorization['username']
@@ -452,7 +452,8 @@ def populate_dropdown(data):
 # ###########
 @app.callback(
     [
-        Output("datatable", "data"), Output("datatable", "columns"), Output("datatable", "active_cell"),Output("datatable", "selected_cells")# Output("datatable", "selected_cells")  # Dropdown
+        Output("datatable", "data"), Output("datatable", "columns"), Output("datatable", "active_cell"),
+        Output("datatable", "selected_cells")# Output("datatable", "selected_cells")  # Dropdown
     ], 
     [
         Input("dropdown_case", "value"), # Invisible Div (on page load)
@@ -465,16 +466,16 @@ def populate_datatable(value):
     df = db.pd_read_sql(sql)
 
     # 1. Populate DataTable with selected case
-    # df.rename(columns={'id':'ID','label':'GT','label_temp':'Predicted','pattern_temp':'Pattern','review':'Review'}, inplace=True)
+    df.rename(
+        columns={'id': 'ID', 'new_gt': 'GT', 'label_temp': 'Predicted', 'pattern_temp': 'Pattern', 'review': 'Review'},
+        inplace=True)
     data = df.to_dict('records')
-    # print(df.columns)
-    columns = [{"name": i, "id": i} for i in df[['id','label', 'label_temp','pattern_temp','review']]]
 
-    # columns = [{"name": i, "id": i} for i in df[['ID','GT', 'Predicted','Pattern','Review']]]
+    columns = [{"name": i, "id": i} for i in df[['ID', 'GT', 'Predicted','Pattern','Review']]]
     active_cell = {'row': 0, 'column': 0, 'column_id': 'label', 'row_id': 1}
     selected_cells = [
             {'row': 0, 'column': 0, 'column_id': 'id', 'row_id': 1}, 
-            {'row': 0, 'column': 1, 'column_id': 'label', 'row_id': 1}, 
+            {'row': 0, 'column': 1, 'column_id': 'new_gt', 'row_id': 1},
             {'row': 0, 'column': 2, 'column_id': 'label_temp', 'row_id': 1}, 
             {'row': 0, 'column': 3, 'column_id': 'pattern_temp', 'row_id': 1},
             {'row': 0, 'column': 4, 'column_id': 'review', 'row_id': 1},
@@ -577,7 +578,6 @@ def reload_data(value,active_cell,selected_cells,start_cell,end_cell):
     txt_perc_unc = "{:.1f}%".format(value_perc_unc)
     txt_perc_non = "{:.1f}%".format(value_perc_non)
     print(txt_perc_nor)
-
 
     count_per_col = df[(df['label'].notnull()) & (df['label'] != "collision") & (df['label'] != "slow")].count()
 
@@ -823,10 +823,10 @@ def reload_data(value,active_cell,selected_cells,start_cell,end_cell):
     fig_predictions = dict( data=[TARGET,normal,split,uncl,rest], layout=layout3)
 
     # -- Ground Truth Dataset --
-    df_normal_gt = df[df['label'] == "normal"]
-    df_split_gt = df[df['label'] == "split"]
-    df_uncl_gt = df[df['label'] == "unclassified"]
-    df_rest_gt = df[(df['label'] != "normal") & (df['label'] != "split") & (df['label'] != "label")]
+    df_normal_gt = df[df['new_gt'] == "normal"]
+    df_split_gt = df[df['new_gt'] == "split"]
+    df_uncl_gt = df[df['new_gt'] == "unclassified"]
+    df_rest_gt = df[(df['new_gt'] != "normal") & (df['new_gt'] != "split") & (df['new_gt'] != "label")]
 
     normal_gt= dict(mode = "markers",name = "Normal",type = "scatter3d",opacity = 1,
         x = df_normal_gt['x'].values,y = df_normal_gt['y'].values,z = df_normal_gt['z'].values,ids = df_normal_gt['id'].values,text = df_normal_gt['id'].values,
@@ -901,5 +901,5 @@ def highlight_row(active_cell):
 
 # Main
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=False)
 
