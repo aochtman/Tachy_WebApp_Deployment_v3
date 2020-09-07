@@ -48,7 +48,7 @@ def render_egm3(current_id: int, df_all):
 db = DatabaseController('root', '4854197saw', 'tachy', 'localhost')  # local DB
 # db = DatabaseController.get_heroku_db()  #cloud dB
 caseids = db.fetch_all_case_ids()
-CASE_ID = 21_37_48
+CASE_ID = '19_50_48'
 
 
 """ Building app """
